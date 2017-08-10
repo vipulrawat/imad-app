@@ -3,6 +3,9 @@
  */
 
 /* Links */
+*{
+    font-family: 'Open Sans Condensed', sans-serif;
+}
 a,
 a:focus,
 a:hover {
