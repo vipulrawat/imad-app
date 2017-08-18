@@ -17,11 +17,11 @@ app.use(morgan('combined'));
 app.use('/ui',express.static('ui'));
 
 app.get('/dbtest',function(req,res){
-   pool.query('SELECT * FROM TEST', function(err, res){
+   pool.query('SELECT * FROM TEST', function(err, result){
          if(err){
              res.status(500).send(err.toString());
          }else{
-             res.send(res);
+             res.send(JSON.stringify(result));
          }
     });
 });
