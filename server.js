@@ -1,17 +1,15 @@
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
-var Pool = require('pool').Pool;
+const { Pool, Client } = require('pg');
 
-var config = {
-    user: 'vipulrawat007',
-    database:'vipulrawat007',
-    host:'db.imad.hasura-app.io',
-    port:'5432',
-    password: process_env.DB_PASSWORD
-    
-};
-var pool = new Pool(config);
+const pool = new Pool({
+  user: 'vipulrawat007',
+  host: 'db.imad.hasura-app.io',
+  database: 'vipulrawat007',
+  password: process.env.DB_PASSWORD,
+  port: 5432,
+});
 
 
 var app = express();
@@ -19,11 +17,9 @@ app.use(morgan('combined'));
 app.use('/ui',express.static('ui'));
 
 app.get('/dbtest',function(req,res){
-    pool.query('SELECT * FROM test',function(err,result){
-        if(err)
-            res.status(500).send(err.toString());
-        else
-            res.send(JSON.stringify(result));
+   pool.query('SELECT * FROM TEST', (err, res) => {
+         console.log(err, res);
+        pool.end();
     });
 });
 
