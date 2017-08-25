@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 const Pool= require('pg').Pool;
+var crypto = require('crypto');
 
 const pool = new Pool({
   user: 'vipulrawat007',
@@ -34,6 +35,15 @@ app.get('/article-one',function(req,res){
 });
 app.get('/article-two',function(req,res){
   res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
+});
+//user login system
+function hash(input,salt){
+    var hashed = crypto.pbkdf2Sync(input,salt,10,512,'sha512');
+    return hashed;
+}
+app.get('/user/:input',function(req,res){
+    var hashedValue = hash(req.params.input,'rand0msalt');
+    res.send(hashedValue.toString());
 });
 
 // Do not change port, otherwise your app won't run on IMAD servers
