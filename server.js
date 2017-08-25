@@ -42,7 +42,7 @@ function hash(input,salt){
     return hashed;
 }
 app.get('/user/:input',function(req,res){
-    var slt = crypto.getRandomBytes(128).toString('hex');
+    var slt = crypto.randomBytes(128).toString('hex');
     var hashedValue = hash(req.params.input,slt);
     res.send(hashedValue.toString('hex'));
 });
