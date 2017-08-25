@@ -42,7 +42,8 @@ function hash(input,salt){
     return hashed;
 }
 app.get('/user/:input',function(req,res){
-    var hashedValue = hash(req.params.input,'rand0msalt');
+    var slt = crypto.getRandomBytes(128).toString('hex');
+    var hashedValue = hash(req.params.input,slt);
     res.send(hashedValue.toString('hex'));
 });
 
