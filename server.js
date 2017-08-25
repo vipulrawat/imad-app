@@ -43,7 +43,7 @@ function hash(input,salt){
 }
 app.get('/user/:input',function(req,res){
     var hashedValue = hash(req.params.input,'rand0msalt');
-    res.send(hashedValue.toString());
+    res.send(hashedValue.toString('hex'));
 });
 
 // Do not change port, otherwise your app won't run on IMAD servers
