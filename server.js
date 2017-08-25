@@ -47,6 +47,20 @@ app.get('/user/:input',function(req,res){
     res.send(hashedValue.toString('hex'));
 });
 
+app.get('/createUser',function(req,res){
+    var username='Vipul';
+    var password = 'pass';
+    var slt=crypto.randomBytes(128).toString('hex');
+    var dbString = hash(password,slt);
+    pool.query('INSERT INTO users (username,password) VALUES ($1,$2)',[username,dbString],function(err,result){
+        if(err){
+             res.status(500).send(err.toString());
+         }else{
+             res.send('User successfully added : '+username);
+         }
+    });
+});
+
 // Do not change port, otherwise your app won't run on IMAD servers
 // Use 8080 only for local development if you already have apache running on 80
 
