@@ -54,8 +54,7 @@ app.get('/createUser',function(req,res){
     var dbString = hash(password,slt);
     pool.query('INSERT INTO "users" (username,password) VALUES ($1,$2)',[username,dbString],function(err,result){
         if(err){
-             //res.status(500).send(err.toString());
-             res.send("failed");
+             res.status(500).send(err.toString());
          }else{
              res.send('User successfully added : '+username);
          }
